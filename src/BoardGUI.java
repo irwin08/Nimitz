@@ -59,8 +59,13 @@ public class BoardGUI {
         }
 
         //hits
-        for(Tuple<Integer,Integer> coord : board.hits){
+        for(Tuple<Integer,Integer> coord : board.getAllHit()){
             rectangles.get(coord).setFill(Color.RED);
+        }
+
+        //sunk
+        for(Tuple<Integer,Integer> coord : board.getAllSunk()){
+            rectangles.get(coord).setFill(Color.DARKRED);
         }
     }
 

@@ -61,16 +61,20 @@ public class MainClass extends Application {
         submarine.add(new Tuple<>(5,7));
 
 
-        board.addShip(aircraftCarrier);
-        board.addShip(battleship);
-        board.addShip(destroyer);
-        board.addShip(cruiser);
-        board.addShip(submarine);
+
+
+        board.addShip(new Ship(aircraftCarrier));
+        board.addShip(new Ship(battleship));
+        board.addShip(new Ship(destroyer));
+        board.addShip(new Ship(cruiser));
+        board.addShip(new Ship(submarine));
 
 
 
 
         board.shoot(new Tuple<Integer,Integer>(5,5));
+        board.shoot(new Tuple<Integer,Integer>(5,6));
+        board.shoot(new Tuple<Integer,Integer>(5,7));
         board.shoot(new Tuple<Integer,Integer>(0,0));
         board.shoot(new Tuple<Integer,Integer>(9,9));
 

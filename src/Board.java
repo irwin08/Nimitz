@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Board {
 
@@ -8,18 +8,14 @@ public class Board {
 
     //tile types
     HashSet<Tuple<Integer, Integer>> misses;
-    HashSet<Tuple<Integer, Integer>> hits;
-    HashSet<Tuple<Integer, Integer>> sinks;
     HashSet<Tuple<Integer, Integer>> shipTiles;
-    HashSet<ArrayList<Tuple<Integer, Integer>>> ships;
+    HashSet<Ship> ships;
 
     public Board(int w, int h){
         width = w;
         height = h;
 
         misses = new HashSet<>();
-        hits = new HashSet<>();
-        sinks = new HashSet<>();
         shipTiles = new HashSet<>();
         ships = new HashSet<>();
     }
@@ -32,9 +28,9 @@ public class Board {
         return height;
     }
 
-    public boolean addShip(ArrayList<Tuple<Integer, Integer>> ship){
+    public boolean addShip(Ship ship){
         //check that ship is ok
-        for(Tuple<Integer,Integer>tile : ship){
+        for(Tuple<Integer,Integer>tile : ship.getCoords()){
             if(tile.x < 0 || tile.x >= width)
                 return false;
             if(tile.y < 0 || tile.y >= height)
@@ -44,7 +40,7 @@ public class Board {
         }
 
         //add ship
-        for(Tuple<Integer,Integer>tile : ship){
+        for(Tuple<Integer,Integer>tile : ship.getCoords()){
             shipTiles.add(tile);
         }
         ships.add(ship);
@@ -52,17 +48,36 @@ public class Board {
     }
 
     public boolean shoot(Tuple<Integer,Integer> coord){
-        if(shipTiles.contains(coord)) {
-            hits.add(coord);
 
-            //TODO: check if whole ship is sunk
+        for(Ship ship : ships) {
+            if (ship.update(coord)) {
 
-            return true;
+                return true;
+            }
         }
-        else {
-            misses.add(coord);
-            return false;
+        misses.add(coord);
+        return false;
+    }
+
+    public Set<Tuple<Integer,Integer>> getAllHit(){
+        HashSet<Tuple<Integer,Integer>> hits = new HashSet<>();
+        for (Ship ship : ships){
+            if(ship.isSunk())
+                continue;
+            hits.addAll(ship.getHits());
         }
+
+        return hits;
+    }
+
+    public Set<Tuple<Integer,Integer>> getAllSunk(){
+        HashSet<Tuple<Integer,Integer>> hits = new HashSet<>();
+        for (Ship ship : ships){
+            if(ship.isSunk())
+                hits.addAll(ship.getHits());;
+        }
+
+        return hits;
     }
 
 }
