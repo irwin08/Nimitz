@@ -14,7 +14,6 @@ public class Ship {
         for(Tuple<Integer,Integer> coord : coords){
             this.coords.put(coord,false);
         }
-        sunk = false;
     }
 
     public Set<Tuple<Integer, Integer>> getCoords() {
@@ -54,5 +53,9 @@ public class Ship {
                 return false;
         }
         return true;
+    }
+
+    public int getSize(){
+        return coords.size();
     }
 }

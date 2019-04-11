@@ -69,8 +69,12 @@ public class MainClass extends Application {
         board.addShip(new Ship(cruiser));
         board.addShip(new Ship(submarine));
 
+        int turn = 1;
 
+        System.out.println("Turn " + turn);
 
+        System.out.println("Continue?");
+        ;
 
         board.shoot(new Tuple<Integer,Integer>(5,5));
         board.shoot(new Tuple<Integer,Integer>(5,6));

@@ -6,6 +6,8 @@ public class Board {
     private int width;
     private int height;
 
+
+
     //tile types
     HashSet<Tuple<Integer, Integer>> misses;
     HashSet<Tuple<Integer, Integer>> shipTiles;
@@ -80,4 +82,11 @@ public class Board {
         return hits;
     }
 
+    public HashSet<Ship> getShips(){
+        return ships;
+    }
+
+    public HashSet<Tuple<Integer, Integer>> getMisses() {
+        return misses;
+    }
 }
